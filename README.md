@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# Opdrachtbeschrijving
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Inleiding
 
-## Available Scripts
+Het toonaangevende bedrijf Banana Security specialiseert zich in het bewaren van geheimen. Hun datacenter staat vol met
+persoonlijke geheimen van klanten die het te veel moeite vinden om ze zelf te onthouden. Banana Security is al meer dan
+een jaar van plan haar klanten de mogelijkheid te geven hun gegevens online te bekijken. Dit mag natuurlijk alleen
+bekeken worden wanneer de gebruiker ingelogd is. Deze implementatie zou eigenlijk verzorgd worden door hun werknemer
+Tim, [maar ze hebben hem helaas moeten ontslaan](https://speld.nl/2016/01/08/icter-tim-ging-een-jaar-offline-en-nu-is-hij-ontslagen/)
+. Daarom huren ze jou in om de klus te klaren!
 
-In the project directory, you can run:
+![screenshot](src/assets/screenshot.png)
 
-### `npm start`
+## Applicatie starten
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Als je het project gecloned hebt naar jouw locale machine, installeer je eerst de `node_modules` door het volgende
+commando in de terminal te runnen:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+npm install
+```
 
-### `npm test`
+Wanneer dit klaar is, kun je de applicatie starten met behulp van:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm start
+```
 
-### `npm run build`
+of gebruik de WebStorm knop (npm start). Open [http://localhost:3000](http://localhost:3000/) om de pagina in de browser
+te bekijken. Begin met het maken van wijzigingen in `src/App.js`: elke keer als je een bestand opslaat, zullen de
+wijzigingen te zien zijn op de webpagina.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Randvoorwaarden
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+De applicatie heeft op dit moment al vier pagina's met werkende routing:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Home pagina (`/`)
+2. Profiel pagina (`/profile`)
+3. Sign in (login) pagina (`/signin`)
+4. Sign up (registratie) pagina (`/signup`)
 
-### `npm run eject`
+Je gaat de volgende concepten implementeren:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* Je implementeert React Context doormiddel van een custom Provider component (`AuthContext.js`);
+* Je hebt nog geen echte invoervelden nodig voor het inloggen. Het in- en uitlog-proces is niets meer dan een simpele
+  state-toggle die wordt beheerd in de context:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```javascript
+const [isAuth, toggleIsAuth] = useState(false);
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* De navigatiebalk laat alleen een _uitlog_-knop zien bij `true` (ingelogd) of de _inlog_- en _registratie_-knoppen
+  bij `false` (niet ingelogd). Deze data komt uit de context;
+* De profielpagina is alleen te bezoeken wanneer de gebruiker is ingelogd;
+* Wanneer de gebruiker het inlog-_formulier_ op de Sign in pagina verstuurd, wordt de `login`-functie uit de context
+  aangeroepen. Deze functie doet het volgende:
+    * Zet de state op `false`;
+    * Logt 'Gebruiker is ingelogd!' in de console
+    * Stuurt de gebruiker door naar de profielpagina
+* Wanneer de gebruiker op de _uitlog_-knop drukt, wordt de `logout`-functie uit de context aangeroepen. Deze functie
+  doet het volgende:
+    * Zet de state op `true`;
+    * Logt 'Gebruiker is uitgelogd!' in de console
+    * Stuurt de gebruiker door naar de homepagina
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Stappenplan
 
-## Learn More
+Als je niet zo goed weet waar je moet beginnen, kun je onderstaand stappenplan volgen:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Maak een context-bestand (`AuthContext.js`) met daarin (je raadt het niet!) een `AuthContext`.
+2. Creer dan het custom Provider-component. Uit dit component return je het echte `AuthContext.Provider` component.
+3. Zorg ervoor dat we het custom Provider-component zometeen om de applicatie kunnen wikkelen door de children property
+   te implementeren.
+4. Maak een data-object aan die je meegeeft aan de `value`-property en zet daar wat test-data in.
+5. Wrap dit om het `<App />`-component in `index.js`
+6. Lees de context uit in één van de pagina-componenten om te kijken of jouw eerste opzet functioneel is (
+   met `useContext`)
+7. Gelukt? Top. Dan is het tijd om state aan te maken in het custom Provider-component. Noem deze
+   state-variabele `isAuth` of `isAuthenticated` en zet de initiële waarde op `false`. Geef de waarde van de state mee
+   aan het data object.
+8. Lees deze authenticatie-status uit in het `<NavBar />` component. Krijg je het te zien in de console? Zorg er dan
+   voor dat je op basis van deze status een inloggen- en registreren-knop laat zien, **of** alleen een uitlog-knop.
+9. Schrijf een inlog-functie in het custom Provider-component en maak deze beschikbaar in het data-object. In de
+   randvoorwaarden staat beschreven wat deze functie moet doen.
+10. Maak de knop in het formulier in `SignIn.js` functioneel. Als het formulier wordt _gesubmit_, roep je de
+    login-functie uit de context aan!
+11. Schrijf een uitlog-functie in het custom Provider-component en maak deze beschikbaar in het data-object. In de
+    randvoorwaarden staat beschreven wat deze functie moet doen.
+12. Maak de knop in de navigatie (`NavBar.js`) functioneel. Als erop wordt geklikt, roep je de logout-functie uit de
+    context aan!
+13. Ten slotte kun je de route naar `/profile` beveiligen met een private route.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Bonus-opdrachten
+**Bonus:**
+* Maak alvast invoervelden in het login- en registratie-formulier die de gebruiker zou kunnen invullen. Je hoeft nog
+  niets met de ingevulde data te doen, dit komt pas volgende les!
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Advanced bonus:**
+* Breidt de state uit van een boolean naar een object. De initiele waarde moet er zo uitzien: `{isAuth: false, user: ''}`
+* Nu de state een object is, werkt het togglen van `isAuth` natuurlijk ook anders in de login- en logout-functie. Pas dit aan zodat het weer werkt!
+* Zorg ervoor dat de inhoud van de state (dus de keys `isAuth` en `user`) worden doorgegeven in het data-object.
+* Zorg er dan nu voor dat de _gebruikersnaam_ wordt meegegeven bij het aanroepen van de login functie vanuit `SignIn.js`
+* Zorg ervoor dat er in het custom Provider-component voor gezorgd wordt dat die gebruikersnaam wordt opgeslagen onder `user` in de state.
+* Laat, als er een gebruiker is ingelogd, de gebruikersnaam zien in de navigatie.
