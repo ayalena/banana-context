@@ -91,11 +91,11 @@ Als je niet zo goed weet waar je moet beginnen, kun je onderstaand stappenplan v
 13. Ten slotte kun je de route naar `/profile` beveiligen met een private route.
 
 ## Bonus-opdrachten
-**Bonus:**
+**Bonus 1:**
 * Maak alvast invoervelden in het login- en registratie-formulier die de gebruiker zou kunnen invullen. Voor het inlog-formulier zijn dat _emailadres_ en _wachtwoord_. Voor het registratieformulier zijn dat _emailadres_, _wachtwoord_ en _gebruikersnaam_. Je hoeft nog
   niets met de ingevulde data te doen, dit komt pas volgende les!
 
-**Advanced bonus:**
+**Bonus 2:**
 * Breidt de state uit van een boolean naar een object. De initiele waarde moet er zo uitzien: `{isAuth: false, user: ''}`
 * Nu de state een object is, werkt het togglen van `isAuth` natuurlijk ook anders in de login- en logout-functie. Pas dit aan zodat het weer werkt!
 * Zorg ervoor dat de inhoud van de state (dus de keys `isAuth` en `user`) worden doorgegeven in het data-object.
