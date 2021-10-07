@@ -92,13 +92,13 @@ Als je niet zo goed weet waar je moet beginnen, kun je onderstaand stappenplan v
 
 ## Bonus-opdrachten
 **Bonus:**
-* Maak alvast invoervelden in het login- en registratie-formulier die de gebruiker zou kunnen invullen. Je hoeft nog
+* Maak alvast invoervelden in het login- en registratie-formulier die de gebruiker zou kunnen invullen. Voor het inlog-formulier zijn dat _emailadres_ en _wachtwoord_. Voor het registratieformulier zijn dat _emailadres_, _wachtwoord_ en _gebruikersnaam_. Je hoeft nog
   niets met de ingevulde data te doen, dit komt pas volgende les!
 
 **Advanced bonus:**
 * Breidt de state uit van een boolean naar een object. De initiele waarde moet er zo uitzien: `{isAuth: false, user: ''}`
 * Nu de state een object is, werkt het togglen van `isAuth` natuurlijk ook anders in de login- en logout-functie. Pas dit aan zodat het weer werkt!
 * Zorg ervoor dat de inhoud van de state (dus de keys `isAuth` en `user`) worden doorgegeven in het data-object.
-* Zorg er dan nu voor dat de _gebruikersnaam_ wordt meegegeven bij het aanroepen van de login functie vanuit `SignIn.js`
-* Zorg ervoor dat er in het custom Provider-component voor gezorgd wordt dat die gebruikersnaam wordt opgeslagen onder `user` in de state.
-* Laat, als er een gebruiker is ingelogd, de gebruikersnaam zien in de navigatie.
+* Zorg er dan nu voor dat het _emailadres_ wordt meegegeven bij het aanroepen van de login functie vanuit `SignIn.js`
+* Zorg ervoor dat er in het custom Provider-component voor gezorgd wordt dat dat emailadres wordt opgeslagen onder `user` in de state.
+* Laat, als er een gebruiker is ingelogd, het emailadres zien in de navigatie.
