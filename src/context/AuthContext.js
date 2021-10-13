@@ -6,10 +6,10 @@ export const AuthContext = React.createContext({});
 
 //custom provider component
 function AuthContextProvider ({ children }) {
-    const [isAuth, toggleIsAuth] = useState(false);
+    const [isAuth, toggleIsAuth] = useState({isAuth: false, user:''});
     const history = useHistory();
 
-    // test data object, voor iedereen beschikbaar
+    //data object, voor iedereen beschikbaar
     const data = {
         testData: 'test-test, is this mic on?',
         isAuth: isAuth,
@@ -29,6 +29,7 @@ function AuthContextProvider ({ children }) {
         history.push("/");
     }
 
+    //wikkel een provider jasje eromheen met als value het data object
     return (
        <AuthContext.Provider value={data}>
            { children }
