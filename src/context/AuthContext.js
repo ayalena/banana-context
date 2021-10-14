@@ -6,7 +6,7 @@ export const AuthContext = React.createContext({});
 
 //custom provider component
 function AuthContextProvider ({ children }) {
-    const [isAuth, toggleIsAuth] = useState({isAuth: false, user:''});
+    const [isAuth, toggleIsAuth] = useState(false);
     const history = useHistory();
 
     //data object, voor iedereen beschikbaar
@@ -18,13 +18,13 @@ function AuthContextProvider ({ children }) {
     }
 
     function logIn() {
-        toggleIsAuth(!isAuth);
+        toggleIsAuth(true);
         console.log("Gebruiker is ingelogd!");
         history.push("/profile");
     }
 
     function logOut() {
-        toggleIsAuth(!isAuth);
+        toggleIsAuth(false);
         console.log("Gebruiker is uitgelogd!");
         history.push("/");
     }
