@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import './App.css';
 import {AuthContext} from "./context/AuthContext";
 
+
 function App() {
   const {isAuth} = useContext(AuthContext);
 

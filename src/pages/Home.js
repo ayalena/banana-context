@@ -6,8 +6,8 @@ function Home() {
     //roep context aan om het te gebruiken
     // const alles = useContext(AuthContext);
     // console.log(alles.testData); --->
-    const {testData} = useContext(AuthContext);
-    console.log(testData);
+    // const {testData} = useContext(AuthContext);
+    // console.log(testData);
 
     return (
         <>
@@ -52,7 +52,7 @@ function Home() {
             </section>
 
             <div>
-                {testData}
+
             </div>
 
         </>

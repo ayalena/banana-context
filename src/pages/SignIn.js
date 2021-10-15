@@ -1,11 +1,27 @@
 import React, {useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {AuthContext} from "../context/AuthContext";
+import axios from "axios";
 
 function SignIn() {
     const {logIn} = useContext(AuthContext);
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        try {
+            const result = await axios.post('http://localhost:3000/login', {
+                email: emailValue,
+                password: passwordValue,
+            })
+            console.log(result.data);
+            logIn(result.data.accessToken);
+        } catch (e) {
+            console.error(e);
+        }
+
+    }
 
     return (
         <>
@@ -14,7 +30,7 @@ function SignIn() {
                 molestias qui quo unde?</p>
 
             <div className="form-container">
-                <form>
+                <form onSubmit={handleSubmit}>
 
                     <div>
                         <label htmlFor="email"> E-mail: </label>
@@ -39,8 +55,7 @@ function SignIn() {
                     </div>
 
                     <button
-                        type="button"
-                        onClick={logIn}
+                        type="submit"
                     >
                         Inloggen
                     </button>

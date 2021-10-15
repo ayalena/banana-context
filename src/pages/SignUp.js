@@ -1,10 +1,30 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import React, {useContext, useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
+import {AuthContext} from "../context/AuthContext";
+import axios from "axios";
+
 
 function SignUp() {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [usernameValue, setUsernameValue] = useState('');
+    const {logIn} = useContext(AuthContext);
+    const history = useHistory();
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        try {
+            const result = await axios.post('http://localhost:3000/register', {
+                email: emailValue,
+                user: usernameValue,
+                password: passwordValue,
+            })
+            console.log(result.data);
+            history.push("/signin")
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
     return (
         <>
@@ -17,7 +37,7 @@ function SignUp() {
                     consequuntur deserunt
                     doloremque ea eveniet facere fuga illum in numquam quia reiciendis rem sequi tenetur veniam?</p>
 
-                <form>
+                <form onSubmit={handleSubmit}>
 
                     <div>
                         <label htmlFor="email"> E-mail: </label>
@@ -53,8 +73,7 @@ function SignUp() {
                     </div>
 
                     <button
-                        type="button"
-                        // onClick={logIn}
+                        type="submit"
                     >
                         Registreren
                     </button>
