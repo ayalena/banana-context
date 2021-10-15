@@ -3,11 +3,9 @@ import {Link} from 'react-router-dom';
 import {AuthContext} from "../context/AuthContext";
 
 function Profile() {
-    const {isAuth} = useContext(AuthContext);
 
     return (
         <>
-            {isAuth &&
                 <>
             <h1>Profielpagina</h1>
                 <section>
@@ -22,7 +20,7 @@ function Profile() {
                 </section>
                 <p>Terug naar de <Link to="/">Homepagina</Link></p>
                 </>
-            }
+
         </>
     );
 }
