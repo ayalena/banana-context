@@ -20,7 +20,6 @@ function Profile() {
                 </section>
                 <p>Terug naar de <Link to="/">Homepagina</Link></p>
                 </>
-
         </>
     );
 }
